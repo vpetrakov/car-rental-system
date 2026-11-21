@@ -21,8 +21,10 @@ public record RentalPeriod(LocalDateTime start, LocalDateTime end) {
      */
     public static RentalPeriod forDays(LocalDateTime start, int days) {
         Objects.requireNonNull(start, "start");
-        if (days <= 0) {
-            throw new IllegalArgumentException("Days must be positive");
+        if (days <= 0 || days > 365) {
+            throw new IllegalArgumentException(
+                    "Days must be between 1 and 365"
+            );
         }
         return new RentalPeriod(start, start.plus(Duration.ofDays(days)));
     }
